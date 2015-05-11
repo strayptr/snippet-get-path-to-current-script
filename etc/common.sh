@@ -117,21 +117,16 @@ depends_on ScriptPath ScriptName
 # Load our project's global settings from "config.sh".
 #==============================================================================
 
-# try to source it from our directory.
+# try to source the config from our directory.
 if [ -e "$ScriptPath/config.sh" ]; then
   source "$ScriptPath/config.sh"
+fi
 
-# otherwise try to source it from our parent directory.  This enables
-# organizing your project's scriptfiles into paths like
+# also try to source the config from our parent directory.  This
+# enables organizing your project's scriptfiles into paths like
 # `etc/utils/foo.sh`, `etc/build/compile.sh`, etc, while keeping your
 # config file at `etc/config.sh`.
-elif [ -e "$ScriptPath/../config.sh" ]; then
+if [ -e "$ScriptPath/../config.sh" ]; then
   source "$ScriptPath/../config.sh"
-
-# otherwise give up. I've decided not to emit a warning message when
-# config.sh can't be loaded; that way you can simply copy this file
-# into any kind of project structure and start using it without being
-# annoyed by warning messages or having to think about how to set it
-# up properly.
 fi
 
